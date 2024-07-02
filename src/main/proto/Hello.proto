@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package com.example.service;
+
+option java_package = "com.example.service.proto";
+option java_multiple_files = true;
+option java_outer_classname = "SimpleServiceProto"; // Added this line
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
+
+message Empty{
+}
+
+enum ActionType{
+  START = 0;
+  STOP = 1;
+}
+
+message Action{
+  ActionType type = 1;
+}
+
+service Simple {
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+  rpc GenerateData (Empty) returns (stream HelloResponse);
+  rpc CreateAction (stream Action) returns (stream HelloResponse);
+}
